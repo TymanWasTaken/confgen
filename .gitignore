@@ -129,4 +129,4 @@ target/
 
 # End of https://www.toptal.com/developers/gitignore/api/clion,rust
 
-.clazy.yaml
+.confgen.yaml

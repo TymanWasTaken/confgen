@@ -1,6 +1,3 @@
-#[macro_use]
-extern crate lazy_static;
-
 use std::collections::HashMap;
 use std::env;
 use std::fs;
@@ -10,6 +7,7 @@ use regex::Regex;
 use ansi_term::Color;
 use std::io;
 use std::io::Write;
+use lazy_static::lazy_static;
 
 #[derive(Serialize, Deserialize)]
 struct ConfigOption {
@@ -46,7 +44,7 @@ macro_rules! err{
 fn main() {
     let config_path = Path::new(
         env::current_dir().unwrap().to_str().unwrap()
-    ).join(".clazy.yaml");
+    ).join(".confgen.yaml");
     let conf: ProjectConfig = match serde_yaml::from_str(
         &*fs::read_to_string(config_path).unwrap()
     ) {
