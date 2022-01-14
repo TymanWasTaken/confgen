@@ -17,7 +17,7 @@ jobs:
         include:
           - target: x86_64-pc-windows-gnu
           - target: x86_64-unknown-linux-musl
-          - target: x86_64-apple-darwin
+          - target: aarch64-unknown-linux-gnu
     steps:
       - uses: actions/checkout@v2
       - name: Install latest stable
@@ -34,4 +34,7 @@ jobs:
           args: --release --target ${{ matrix.target }}
       - uses: actions/upload-artifact@v2
         with:
-          path: target/${{ matrix.target }}/release/clazy*
+          path: |
+            target/${{ matrix.target }}/release/clazy
+            target/${{ matrix.target }}/release/clazy.exe
+          name: artifact-${{ matrix.target }}
