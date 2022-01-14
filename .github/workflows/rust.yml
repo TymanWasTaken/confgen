@@ -33,7 +33,6 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          override: true
           target: ${{ matrix.target }}
       - name: Build project
         uses: actions-rs/cargo@v1
