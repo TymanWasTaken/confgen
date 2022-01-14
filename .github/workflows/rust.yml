@@ -20,13 +20,13 @@ jobs:
           - target: x86_64-apple-darwin
     steps:
       - uses: actions/checkout@v2
-      - name: Install latest nightly
+      - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
           target: ${{ matrix.target }}
-      - name: Run cargo check
+      - name: Build project
         uses: actions-rs/cargo@v1
         with:
           command: build
@@ -34,4 +34,4 @@ jobs:
           args: --release --target ${{ matrix.target }}
       - uses: actions/upload-artifact@v2
         with:
-          path: path/to/artifact/world.txt
+          path: target/${{ matrix.target }}/release/clazy*
