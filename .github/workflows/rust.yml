@@ -44,6 +44,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           path: |
-            target/${{ matrix.target }}/release/clazy
-            target/${{ matrix.target }}/release/clazy.exe
+            target/${{ matrix.target }}/release/confgen
+            target/${{ matrix.target }}/release/confgen.exe
           name: artifact-${{ matrix.target }}
