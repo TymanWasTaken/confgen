@@ -1,3 +1,6 @@
+pub mod console_utils;
+
+use console_utils::console;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
@@ -26,19 +29,6 @@ struct ProjectConfig {
 
 lazy_static! {
     static ref OPTION_REGEX: Regex = Regex::new(r"\$\{\{(.+)}}").unwrap();
-}
-
-macro_rules! err{
-    ($msg:expr) => {
-        {
-            eprintln!(
-                "{} {}",
-                Color::Red.bold().paint("::"),
-                Color::Red.paint($msg)
-            );
-            panic!();
-        }
-    };
 }
 
 fn main() {
@@ -71,7 +61,7 @@ fn main() {
         let opt_name = cap.get(1).unwrap().as_str();
         let opt_conf = match conf.options.iter().find(|opt| opt.id == opt_name.to_string()) {
             Some(opt) => opt,
-            None => err!(format!("Option {} not found in configuration file.", opt_name))
+            None => console::err!(format!("Option {} not found in configuration file.", opt_name))
         };
         println!(
             "{} {}: {}",
@@ -91,22 +81,7 @@ fn main() {
             Color::Blue.bold().paint("Default"),
             Color::Cyan.paint(format!("{}", opt_conf.default.as_ref().unwrap_or(&"None".to_string())))
         );
-        print!(
-            "{} {}: ",
-            Color::Yellow.bold().paint("::"),
-            Color::Blue.bold().paint("Value"),
-        );
-        io::stdout().flush().unwrap();
-        let mut value = String::new();
-        io::stdin().read_line(&mut value).unwrap();
-        value = value.replace("\n", "");
-        let input = match value.is_empty() {
-            true => match opt_conf.default.as_ref() {
-                Some(default) => default,
-                None => err!(format!("Option {} does not have a default, you must enter a value for it.", opt_name))
-            },
-            false => &value
-        };
+        let input = console::prompt!("Value", opt_conf.name, opt_conf.default.as_ref());
         opts.insert(opt_name, String::from(input));
         println!();
     }
