@@ -1,6 +1,8 @@
-pub mod console_utils;
+mod console_utils;
+mod parsing_utils;
 
 use console_utils::console;
+use parsing_utils::parsing;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
@@ -17,6 +19,7 @@ struct ConfigOption {
     name: String,
     id: String,
     default: Option<String>,
+    r#type: Option<String>, // Types: String (default), Number, Boolean
     description: String
 }
 
@@ -53,11 +56,33 @@ fn main() {
             Some(opt) => opt,
             None => console::err!(format!("Option {} not found in configuration file.", opt_name))
         };
+        let r#type = opt_conf.r#type.to_owned().unwrap_or("String".to_string());
+        if !["String", "Number", "Boolean"].contains(&&*r#type) {
+            console::err!(format!("Option {} has invalid type {}.", opt_name, r#type));
+        }
         console::val!("Name", opt_conf.name);
         console::val!("Description", opt_conf.description);
+        console::val!("Type", r#type);
         console::val!("Default", opt_conf.default.as_ref().unwrap_or(&"None".to_string()));
         let input = console::prompt!("Value", opt_conf.name, opt_conf.default.as_ref());
-        opts.insert(opt_name, String::from(input));
+        let _ = match r#type.as_str() {
+            "String" => opts.insert(opt_name, input),
+            "Number" => {
+                let parsed = parsing::number(input.as_str());
+                match parsed {
+                    Some(num) => opts.insert(opt_name, num.to_string()),
+                    None => console::err!("Error parsing number type for option.")
+                }
+            },
+            "Boolean" => {
+                let parsed = parsing::boolean(input.as_str());
+                match parsed {
+                    Some(bool) => opts.insert(opt_name, bool.to_string()),
+                    None => console::err!("Error parsing boolean type for option.")
+                }
+            }
+            _ => console::err!(format!("Unknown type {} (impossible).", r#type))
+        };
         println!();
     }
 
