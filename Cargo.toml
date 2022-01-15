@@ -6,7 +6,6 @@ authors = ["Tyman"]
 readme = "README.md"
 repository = "https://github.com/TymanWasTaken/confgen"
 license = "OSL-3.0"
-license_file = "LICENSE"
 edition = "2021"
 [dependencies]
 ansi_term = "0.12.1"
