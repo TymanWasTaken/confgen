@@ -28,7 +28,7 @@ checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
 name = "confgen"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "ansi_term",
  "lazy_static",

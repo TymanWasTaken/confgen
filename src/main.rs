@@ -39,21 +39,11 @@ fn main() {
         &*fs::read_to_string(config_path).unwrap()
     ) {
         Ok(json) => json,
-        Err(err) => panic!("Error parsing config file: {:?}", err)
+        Err(err) => console::err!(format!("Error parsing config file: {:?}", err))
     };
 
-    println!(
-        "{} {}",
-        Color::Cyan.bold().paint("::"),
-        Color::Green.bold().paint("Starting interactive configuration setup.")
-    );
-    println!(
-        "{} {}",
-        Color::Purple.bold().paint("::"),
-        Color::Green.bold().paint(
-            format!("Configuration will be saved in {}.", conf.path)
-        )
-    );
+    console::info!("Starting interactive configuration setup.");
+    console::info!(format!("Configuration will be saved in {}.", conf.path));
 
     let mut opts = HashMap::new();
 
@@ -63,24 +53,9 @@ fn main() {
             Some(opt) => opt,
             None => console::err!(format!("Option {} not found in configuration file.", opt_name))
         };
-        println!(
-            "{} {}: {}",
-            Color::Yellow.bold().paint("::"),
-            Color::Blue.bold().paint("Name"),
-            Color::Cyan.paint(format!("{}", opt_conf.name))
-        );
-        println!(
-            "{} {}: {}",
-            Color::Yellow.bold().paint("::"),
-            Color::Blue.bold().paint("Description"),
-            Color::Cyan.paint(format!("{}", opt_conf.description))
-        );
-        println!(
-            "{} {}: {}",
-            Color::Yellow.bold().paint("::"),
-            Color::Blue.bold().paint("Default"),
-            Color::Cyan.paint(format!("{}", opt_conf.default.as_ref().unwrap_or(&"None".to_string())))
-        );
+        console::val!("Name", opt_conf.name);
+        console::val!("Description", opt_conf.description);
+        console::val!("Default", opt_conf.default.as_ref().unwrap_or(&"None".to_string()));
         let input = console::prompt!("Value", opt_conf.name, opt_conf.default.as_ref());
         opts.insert(opt_name, String::from(input));
         println!();
@@ -94,9 +69,5 @@ fn main() {
     let mut file = fs::File::create(conf.path).unwrap();
     file.write_all(completed_config.as_bytes()).unwrap();
 
-    println!(
-        "{} {}",
-        Color::Cyan.bold().paint("::"),
-        Color::Green.bold().paint("Finished interactive configuration setup.")
-    );
+    console::info!("Finished interactive configuration setup.");
 }

@@ -48,6 +48,31 @@ pub mod console {
 			}
 		};
 	}
+
+	macro_rules! val {
+		($name:expr, $value:expr) => {
+			{
+				println!(
+					"{} {}: {}",
+					Color::Yellow.bold().paint("::"),
+					Color::Blue.bold().paint($name),
+					Color::Cyan.paint(format!("{}", $value))
+				);
+			}
+		};
+	}
+
+	macro_rules! info {
+		($msg:expr) => {
+			{
+				println!(
+					"{} {}",
+					Color::Cyan.bold().paint("::"),
+					Color::Green.bold().paint($msg)
+				);
+			}
+		};
+	}
 	
-	pub(crate) use {err, prompt};
+	pub(crate) use {err, prompt, info, val};
 }
