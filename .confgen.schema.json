@@ -12,10 +12,11 @@
     },
     "options": {
       "type": "array",
-      "description": "A list of options"
+      "description": "A list of options",
       "items": [
         {
           "type": "object",
+          "description": "Details about an option",
           "properties": {
             "name": {
               "type": "string",
