@@ -3,10 +3,12 @@
   "type": "object",
   "properties": {
     "template": {
-      "type": "string"
+      "type": "string",
+      "description": "The template that the options will be replaced in and then written to the specified `path`"
     },
     "path": {
-      "type": "string"
+      "type": "string",
+      "description": "The path the finished config file will be written to after entering in all options"
     },
     "options": {
       "type": "array",
@@ -15,187 +17,26 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of this option that the user is shown"
             },
             "id": {
-              "type": "string"
+              "type": "string",
+              "description": "The ID of this option used in the template"
             },
             "description": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
+              "type": "string",
+              "description": "A description of this option that is given to the user"
             },
             "default": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description",
-            "default"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "default": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description",
-            "default"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "default": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description",
-            "default"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
+              "type": "string",
+              "description": "The default value for this option"
             }
           },
           "required": [
             "name",
             "id",
             "description"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "default": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "id",
-            "description",
-            "default"
           ]
         }
       ]
