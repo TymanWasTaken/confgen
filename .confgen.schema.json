@@ -33,6 +33,11 @@
             "default": {
               "type": "string",
               "description": "The default value for this option"
+            },
+            "type": {
+              "enum": ["String", "Number", "Boolean"],
+              "description": "The type of this argument",
+              "default": "String"
             }
           },
           "required": [
